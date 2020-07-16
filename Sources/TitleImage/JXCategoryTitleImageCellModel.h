@@ -9,16 +9,19 @@
 #import "JXCategoryTitleCellModel.h"
 
 typedef NS_ENUM(NSUInteger, JXCategoryTitleImageType) {
-    JXCategoryTitleImageType_OnlyImage = 0,
-    JXCategoryTitleImageType_TopImage,
+    JXCategoryTitleImageType_TopImage = 0,
     JXCategoryTitleImageType_LeftImage,
     JXCategoryTitleImageType_BottomImage,
     JXCategoryTitleImageType_RightImage,
+    JXCategoryTitleImageType_OnlyImage,
+    JXCategoryTitleImageType_OnlyTitle,
 };
 
 @interface JXCategoryTitleImageCellModel : JXCategoryTitleCellModel
 
 @property (nonatomic, assign) JXCategoryTitleImageType imageType;
+
+@property (nonatomic, copy) void(^loadImageCallback)(UIImageView *imageView, NSURL *imageURL);
 
 @property (nonatomic, copy) NSString *imageName;    //加载bundle内的图片
 
@@ -31,5 +34,9 @@ typedef NS_ENUM(NSUInteger, JXCategoryTitleImageType) {
 @property (nonatomic, assign) CGSize imageSize;     //默认CGSizeMake(20, 20)
 
 @property (nonatomic, assign) CGFloat titleImageSpacing;    //titleLabel和ImageView的间距，默认5
+
+@property (nonatomic, assign, getter=isImageZoomEnabled) BOOL imageZoomEnabled;
+
+@property (nonatomic, assign) CGFloat imageZoomScale;
 
 @end
