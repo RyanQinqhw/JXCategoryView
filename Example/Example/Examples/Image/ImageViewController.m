@@ -16,16 +16,26 @@
 
 @implementation ImageViewController
 
-- (void)viewDidLoad {
-    self.titles = @[@"crab", @"lobster", @"apple", @"carrot", @"grape", @"watermelon"];
-    _imageNames = @[@"crab", @"lobster", @"apple", @"carrot", @"grape", @"watermelon"];
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.titles = @[@"crab", @"lobster", @"apple", @"carrot", @"grape", @"watermelon"];
+        self.imageNames = @[@"crab", @"lobster", @"apple", @"carrot", @"grape", @"watermelon"];
+    }
+    return self;
+}
 
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     NSArray *selectedImageNames = @[@"crab_selected", @"lobster_selected", @"apple_selected", @"carrot_selected", @"grape_selected", @"watermelon_selected"];
 
-    self.myCategoryView.imageNames = self.imageNames;
-    self.myCategoryView.selectedImageNames = selectedImageNames;
+    self.myCategoryView.imageInfoArray = self.imageNames;
+    self.myCategoryView.selectedImageInfoArray = selectedImageNames;
+    self.myCategoryView.loadImageBlock = ^(UIImageView *imageView, id info) {
+        NSString *imageName = info;
+        imageView.image = [UIImage imageNamed:imageName];
+    };
     self.myCategoryView.imageZoomEnabled = YES;
     self.myCategoryView.imageCornerRadius = 0;
 
